@@ -2,6 +2,7 @@
 Virtual Joystick
 
 For much more go to vJoy web site: http://vjoystick.sourceforge.net
+<<<<<<< HEAD
 
 To build the project:
 
@@ -12,3 +13,5 @@ To build the project:
 Caution:
 You will need to install Visual Studio 2015 (Free)
 To build the entire project including the driver you need to install the SDK and puchase a license to sign drivers.
+=======
+>>>>>>> upstream/VS2015+VS2012

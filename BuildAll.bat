@@ -1,6 +1,8 @@
 echo off
-SET VS=14.0
-SET BUILDER=%ProgramFiles(x86)%\MSBuild\%VS%\Bin\MSBuild.exe
+SET VS_DRV=14.0
+SET VS_APP=14.0
+SET BUILDER_DRV=%ProgramFiles(x86)%\MSBuild\%VS_DRV%\Bin\MSBuild.exe
+SET BUILDER_APP=%ProgramFiles(x86)%\MSBuild\%VS_APP%\Bin\MSBuild.exe
 SET Target64=x64\Release
 SET Target32=Win32\Release
 SET DigiCertUtil=%USERPROFILE%\DESKTOP\DigiCertUtil.exe
@@ -8,6 +10,7 @@ SET InnoCompiler=%ProgramFiles(x86)%\Inno Setup 5\ISCC.exe
 
 
 :build32
+<<<<<<< HEAD
 echo %DATE% %TIME%: Cleaning vJoy (x86) 
 "%BUILDER%"  vjoy.sln  /maxcpucount:1 /t:clean /p:Platform=Win32;Configuration=Release
 set BUILD_STATUS=%ERRORLEVEL%
@@ -15,10 +18,24 @@ if not %BUILD_STATUS%==0 goto fail
 
 echo %DATE% %TIME%: Building vJoy (x86)
 "%BUILDER%"  vjoy.sln  /maxcpucount:4  /p:Platform=Win32;Configuration=Release
+=======
+echo Building vJoy (x86) Driver
+"%BUILDER_DRV%"  vjoy.sln  /t:rebuild /p:Platform=Win32;Configuration=Release
+>>>>>>> upstream/VS2015+VS2012
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 goto fail
+echo Building vJoy (x86) Driver [End]
+
+:build32_App
+echo Building vJoy (x86) Apps
+"%BUILDER_APP%"  vjoyapps.sln  /t:rebuild /p:Platform=Win32;Configuration=Release
+set BUILD_STATUS=%ERRORLEVEL%
+if not %BUILD_STATUS%==0 goto fail
+echo Building vJoy (x86) Apps [End]
+
 
 :build64
+<<<<<<< HEAD
 echo %DATE% %TIME%: Cleaning vJoy (x64)
 "%BUILDER%"  vjoy.sln  /maxcpucount:1 /t:clean /p:Platform=x64;Configuration=Release
 set BUILD_STATUS=%ERRORLEVEL%
@@ -26,8 +43,20 @@ if not %BUILD_STATUS%==0 goto fail
 
 echo %DATE% %TIME%: Building vJoy (x64)
 "%BUILDER%"  vjoy.sln  /maxcpucount:4  /p:Platform=x64;Configuration=Release
+=======
+echo Building vJoy (x64) Driver
+"%BUILDER_DRV%"  vjoy.sln  /t:rebuild /p:Platform=x64;Configuration=Release
 set BUILD_STATUS=%ERRORLEVEL%
 if not %BUILD_STATUS%==0 goto fail
+echo Building vJoy (x64) Driver [End]
+
+:build64_App
+echo Building vJoy (x64) Apps
+"%BUILDER_APP%"  vjoyapps.sln  /t:rebuild /p:Platform=x64;Configuration=Release
+>>>>>>> upstream/VS2015+VS2012
+set BUILD_STATUS=%ERRORLEVEL%
+if not %BUILD_STATUS%==0 goto fail
+echo Building vJoy (x64) Apps [End]
 
 :signapps
 echo %DATE% %TIME%: Signing the applications
